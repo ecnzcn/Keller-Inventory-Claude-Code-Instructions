@@ -57,6 +57,18 @@ automatic price lookup, e-commerce integrations, subscriptions, payments.
 
 ## Status
 
-See task tracker in the active session / commit history for current
-progress against this order. This document is updated as phases complete
-or scope changes.
+All 22 phases above are implemented and verified (typecheck, unit tests,
+production build, and manual browser QA at 375/768/1024/1440px in both
+light and dark mode — see commit history for details per phase).
+
+Known gaps worth a look before relying on this for real use:
+
+- Camera capture / file picker is exercised via automated file input
+  injection in tests; a real device's native camera sheet has not been
+  tested by a human.
+- No formal accessibility audit (screen reader pass, full keyboard-only
+  walkthrough) was run beyond semantic HTML, labeled controls, and
+  focus-visible styling applied throughout.
+- The service worker's offline behavior was verified in Chromium via
+  Playwright's network offline emulation, not on an actual iOS/Safari
+  device.
