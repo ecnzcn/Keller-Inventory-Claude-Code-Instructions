@@ -92,6 +92,15 @@ tests/ (or colocated *.test.ts(x))
 4. Feature hook re-queries via `itemService.listItems()` (or an in-memory
    store/observer) and re-renders.
 
+## Routing
+
+`react-router-dom`'s `createHashRouter` is used instead of the browser
+history router. The app has no server to provide SPA fallback routing, and
+its primary use case is being installed to the home screen and opened
+offline — a hash-based URL (`#/inventory/:id`) always resolves correctly
+from a single static `index.html` with no server-side rewrite rules or
+extra service-worker routing logic required.
+
 ## State Management
 
 No global state library. Each feature owns its data via small hooks

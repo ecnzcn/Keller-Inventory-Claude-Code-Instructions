@@ -1,7 +1,13 @@
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { ThemeProvider } from '../ui/theme/ThemeContext'
+import { routes } from './routes'
+
+const router = createHashRouter(routes)
+
 export function App() {
   return (
-    <div className="app-loading">
-      <p>Keller</p>
-    </div>
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   )
 }

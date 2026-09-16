@@ -1,0 +1,109 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 960px;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.searchBar {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.searchBar input {
+  flex: 1;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.searchBar button {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.statLabel {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: var(--space-1);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.sectionHeader h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.recentList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.recentLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.itemName {
+  font-weight: 600;
+}
+
+.itemMeta {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: var(--space-1);
+}
+
+.primaryLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-weight: 600;
+  text-decoration: none;
+}
