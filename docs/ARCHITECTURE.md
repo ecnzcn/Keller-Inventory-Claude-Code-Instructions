@@ -139,6 +139,35 @@ cached assets when offline, falling back to network-first for anything not
 precached. IndexedDB already gives full offline data access, so the service
 worker's job is limited to making the app shell load without a network.
 
+## Deployment
+
+The app is a static build (`npm run build` → `dist/`) with no server-side
+requirement, so it can be hosted anywhere that serves static files over
+HTTPS. `.github/workflows/deploy-pages.yml` builds and deploys it to
+GitHub Pages on push, for testing on a real device without any paid
+infrastructure.
+
+GitHub Pages project sites are served under `https://<user>.github.io/
+<repo-name>/`, not the domain root, which the app's absolute-root paths
+(manifest link, icons, service worker registration) originally assumed.
+This is handled generically rather than hardcoded to GitHub Pages:
+
+- `vite.config.ts`'s `base` reads `VITE_BASE_PATH` (default `/`); the
+  workflow sets it to `/<repo-name>/` for the Pages build only. Vite then
+  rewrites `index.html`'s `%BASE_URL%` placeholders and all built asset
+  URLs accordingly.
+- `public/manifest.webmanifest` uses **relative** `start_url`/`scope`/icon
+  paths (no leading `/`), which the Web App Manifest spec resolves
+  relative to the manifest's own URL — correct at any subpath without
+  needing a build-time rewrite of this static file.
+- `public/sw.js` derives its precache URLs from `self.registration.scope`
+  at runtime instead of hardcoding `/`.
+- `registerServiceWorker.ts` registers `${import.meta.env.BASE_URL}sw.js`.
+
+Any other static host (a custom domain, Netlify, Vercel, S3, ...) works
+without these adjustments at all, since they typically serve from a
+domain root where `VITE_BASE_PATH` stays at its default.
+
 ## Error Handling
 
 - `services/` throw typed errors (`ValidationError`, `NotFoundError`,

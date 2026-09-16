@@ -5,13 +5,19 @@
 // in hashed assets are already safe without a bump (see below).
 const CACHE_NAME = 'keller-cache-v1'
 
+// Resolved against the SW's own scope rather than hardcoded to '/', so the
+// same file works whether the app is hosted at a domain root or under a
+// subpath (e.g. a GitHub Pages project site).
+const SCOPE_PATH = new URL(self.registration.scope).pathname
+const APP_SHELL_URL = SCOPE_PATH
+
 const PRECACHE_URLS = [
-  '/',
-  '/manifest.webmanifest',
-  '/favicon.svg',
-  '/apple-touch-icon.png',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  APP_SHELL_URL,
+  `${SCOPE_PATH}manifest.webmanifest`,
+  `${SCOPE_PATH}favicon.svg`,
+  `${SCOPE_PATH}apple-touch-icon.png`,
+  `${SCOPE_PATH}icons/icon-192.png`,
+  `${SCOPE_PATH}icons/icon-512.png`,
 ]
 
 self.addEventListener('install', (event) => {
@@ -44,7 +50,7 @@ self.addEventListener('fetch', (event) => {
   // shell when offline.
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request).catch(() => caches.match('/').then((cached) => cached ?? Response.error())),
+      fetch(request).catch(() => caches.match(APP_SHELL_URL).then((cached) => cached ?? Response.error())),
     )
     return
   }
