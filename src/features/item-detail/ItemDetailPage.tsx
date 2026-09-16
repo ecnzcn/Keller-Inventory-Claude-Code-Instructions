@@ -35,6 +35,7 @@ export function ItemDetailPage() {
   const { data, loading } = useLiveQuery(
     () => (itemId ? loadItemDetail(itemId) : Promise.resolve(undefined)),
     ['item', 'category', 'location', 'tag'],
+    [itemId],
   )
 
   if (loading) return <p>Lädt…</p>

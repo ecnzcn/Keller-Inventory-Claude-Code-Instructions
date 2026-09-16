@@ -9,11 +9,17 @@ interface LiveQueryState<T> {
 }
 
 /**
- * Runs `load()` on mount and again whenever one of `watch` entity kinds
- * changes elsewhere in the app (via changeBus), keeping screens in sync
- * without a global store.
+ * Runs `load()` on mount, whenever one of `watch` entity kinds changes
+ * elsewhere in the app (via changeBus), and whenever a value in `deps`
+ * changes (e.g. a route param like `itemId` — without this, navigating
+ * from one item/location to another would keep showing the previous
+ * screen's stale data until an unrelated mutation happened to fire).
  */
-export function useLiveQuery<T>(load: () => Promise<T>, watch: EntityKind[]): LiveQueryState<T> {
+export function useLiveQuery<T>(
+  load: () => Promise<T>,
+  watch: EntityKind[],
+  deps: unknown[] = [],
+): LiveQueryState<T> {
   const [data, setData] = useState<T>()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error>()
@@ -42,7 +48,10 @@ export function useLiveQuery<T>(load: () => Promise<T>, watch: EntityKind[]): Li
       }),
     )
     return () => unsubscribers.forEach((unsubscribe) => unsubscribe())
-  }, [run, ...watch])
+    // `run` is stable; `watch` is meant to be a literal array of entity
+    // kinds at the call site, and `deps` carries the caller's reactive
+    // values (e.g. route params) that should force a reload.
+  }, [run, ...watch, ...deps])
 
   return { data, loading, error, reload: run }
 }
