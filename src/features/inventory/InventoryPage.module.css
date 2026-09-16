@@ -1,0 +1,112 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.addLink {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .addLink {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
+    font-weight: 600;
+    text-decoration: none;
+  }
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.controls input,
+.controls select,
+.sortDirectionButton {
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.searchInput {
+  flex: 1 1 200px;
+}
+
+.sortDirectionButton {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.itemName {
+  font-weight: 600;
+}
+
+.itemMeta {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: var(--space-1);
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.primaryLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-weight: 600;
+  text-decoration: none;
+}
