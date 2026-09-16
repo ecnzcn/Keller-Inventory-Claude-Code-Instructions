@@ -7,7 +7,9 @@ import { tagService } from '../../services/tagService'
 import { Button } from '../../ui/components/Button'
 import { formatCurrency, formatDate } from '../../ui/format'
 import { useLiveQuery } from '../shared/useLiveQuery'
+import { DocumentSection } from './DocumentSection'
 import styles from './ItemDetailPage.module.css'
+import { PhotoSection } from './PhotoSection'
 
 async function loadItemDetail(itemId: string) {
   const item = await itemService.getItem(itemId)
@@ -78,6 +80,8 @@ export function ItemDetailPage() {
         </div>
       </div>
 
+      <PhotoSection itemId={item.id} />
+
       <div className={styles.grid}>
         <Detail label="Anzahl" value={`${item.quantity} ${item.unit}`.trim()} />
         <Detail label="Zustand" value={item.condition ? CONDITION_LABELS[item.condition] : undefined} />
@@ -115,6 +119,8 @@ export function ItemDetailPage() {
           <p className={styles.notes}>{item.notes}</p>
         </section>
       )}
+
+      <DocumentSection itemId={item.id} />
     </div>
   )
 }
