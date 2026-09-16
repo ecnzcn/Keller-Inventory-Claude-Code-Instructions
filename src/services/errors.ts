@@ -19,3 +19,11 @@ export class ConflictError extends Error {
     this.name = 'ConflictError'
   }
 }
+
+/** Thrown when a backup file is missing, malformed, or otherwise cannot be imported. */
+export class ImportError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'ImportError'
+  }
+}
